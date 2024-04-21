@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Product Detailes Here</h4>
+                    <form class="forms-sample" method="post" action="{% url 'saveproduct' %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group row">
+                        <label for="" class="col-sm-3 col-form-label">Category</label>
+                          <div class="col-sm-9">
+                         <select class="form-control" id="exampleSelectCourse" name="category">
+                                    <option disabled>Select Category</option>
+                                    {% for i in data %}
+                                    <option>{{i.CategoryName}}</option>
+                                    {% endfor %}
+                         </select>
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Product Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Product Name" name="pname">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputMobile" class="col-sm-3 col-form-label">Price</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="exampleInputMobile" placeholder="Price" name="price">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Brand</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="exampleInputPassword2" placeholder="Brand" name="brand">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Ingrediets</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="exampleInputConfirmPassword2" placeholder="Ingrediets" name="ingredients">
+                        </div>
+                      </div>
+                        <div class="form-group row">
+                        <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Image</label>
+                        <div class="col-sm-9">
+                          <input type="file" class="btn btn-primary mr-2" id=""  placeholder="Image" name="image">
+                        </div>
+                      </div>
+                      <div class="form-check form-check-flat form-check-primary">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input"> Remember me <i class="input-helper"></i></label>
+                      </div>
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    </form>
+                  </div>
+                </div>
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+        {% for i in messages %}
+             {% if i.tags == 'warning' %}
+                  <script>swal('{{i}}','', 'warning')</script>
+             {% elif i.tags == 'error' %}
+                  <script>swal('{{i}}','', 'error')</script>
+             {% else %}
+                  <script>swal('{{i}}','', 'success')</script>
+             {% endif %}
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
+{% endblock %}

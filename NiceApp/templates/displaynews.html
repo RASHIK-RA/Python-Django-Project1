@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for i in data %}
+                                  <tr>
+                                       <td>
+                                          <img src="{{i.Image.url}}" width="200px" height="2500px">
+                                      </td>
+                                      <td>{{i.Name}}</td>
+                                      <td>{{i.Message}}</td><tr><tr>
+                                      <td>
+                                          <form action="{% url 'deletenews' dataid=i.id %}">
+                                          <button type="submit" class="btn btn-primary mr-2">DELETE</button>
+                                          </form>
+                                      </td>
+
+                                  </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+        {% for i in messages %}
+             {% if i.tags == 'warning' %}
+                  <script>swal('{{i}}','', 'warning')</script>
+             {% elif i.tags == 'error' %}
+                  <script>swal('{{i}}','', 'error')</script>
+             {% else %}
+                  <script>swal('{{i}}','', 'success')</script>
+             {% endif %}
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
+{% endblock %}
